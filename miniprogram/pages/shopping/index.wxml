@@ -1,0 +1,36 @@
+<view class="page">
+  <view class="eyebrow">买齐食材 · 回家做饭</view>
+  <view class="title">买菜清单</view>
+  <view class="notice">{{cloudEnabled ? '全家共用一份清单。' : '仅保存在当前设备。'}}只合并同名、同单位的明确数字用量；已买条目不参与合并。</view>
+  <view class="panel">
+    <view class="section-title">再添一项</view>
+    <input class="field" value="{{name}}" data-field="name" bindinput="onField" placeholder="食材名称，如鸡蛋" maxlength="60" />
+    <input class="field" value="{{amount}}" data-field="amount" bindinput="onField" placeholder="用量，如 3 个（可留空）" maxlength="40" />
+    <button class="primary" bindtap="onAdd" disabled="{{busy || !loaded}}" loading="{{busy}}">添加到清单</button>
+  </view>
+  <view wx:if="{{error}}" class="notice">{{error}}<button class="secondary" bindtap="refresh">重新读取清单</button></view>
+  <block wx:if="{{loaded}}">
+    <view class="panel">
+      <view class="section-title">待买 · {{pending.length}} 项</view>
+      <view wx:if="{{pending.length === 0}}" class="muted">没有待买食材。可以手动添加，也可以从菜谱详情勾选加入。</view>
+      <view class="shopping-row" wx:for="{{pending}}" wx:key="id">
+        <button class="item-toggle" data-id="{{item.id}}" bindtap="onToggle" disabled="{{busy}}" aria-label="{{item.name}}，标记已买">
+          <text class="check-mark">○</text>
+          <view class="item-info"><view class="item-name">{{item.name}}</view><view class="amount">{{item.amount}}</view><view class="source">{{item.sourceLabel}}</view></view>
+        </button>
+        <button class="remove" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="onDelete" disabled="{{busy}}">删除</button>
+      </view>
+    </view>
+    <view wx:if="{{completed.length > 0}}" class="panel">
+      <view class="section-title">已买 · {{completed.length}} 项</view>
+      <view class="muted">点一下可恢复为待买。</view>
+      <view class="shopping-row" wx:for="{{completed}}" wx:key="id">
+        <button class="item-toggle completed" data-id="{{item.id}}" bindtap="onToggle" disabled="{{busy}}" aria-label="{{item.name}}，恢复待买">
+          <text class="check-mark">✓</text>
+          <view class="item-info"><view class="item-name">{{item.name}}</view><view class="amount">{{item.amount}}</view><view class="source">{{item.sourceLabel}}</view></view>
+        </button>
+        <button class="remove" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="onDelete" disabled="{{busy}}">删除</button>
+      </view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,9 @@
+*
+!Dockerfile
+!requirements.txt
+!cloud_app.py
+!cloud_store.py
+!url_recipe.py
+!deepseek_recipe.py
+!importer.py
+!search_recipe.py

@@ -1,0 +1,15 @@
+.hero { text-align: center; padding: 12rpx 16rpx 24rpx; }
+.hero-symbol { font-size: 100rpx; line-height: 1.5; margin-bottom: 18rpx; }
+.hero-symbol image { width: 220rpx; height: 180rpx; border-radius: 24rpx; }
+.description { margin-top: 14rpx; }
+.hero-meta { margin-top: 24rpx; font-size: 25rpx; color: #526749; }
+.divider { color: #b5bdab; margin: 0 20rpx; }
+.ingredient { display: flex; justify-content: space-between; padding: 20rpx 0; border-bottom: 1rpx solid #efefe9; line-height: 1.5; }
+.ingredient:last-child { border-bottom: none; }
+.amount { color: #788274; margin-left: 24rpx; }
+.step { display: flex; align-items: flex-start; margin: 28rpx 0; }
+.step:last-child { margin-bottom: 4rpx; }
+.step-number { width: 44rpx; height: 44rpx; line-height: 44rpx; border-radius: 50%; background: #edf0e6; color: #365b41; text-align: center; flex-shrink: 0; margin-right: 22rpx; font-size: 25rpx; }
+.step-text { flex: 1; line-height: 1.8; }
+.ingredient-select { align-items: center; }
+.ingredient-label { flex: 1; min-width: 0; margin-left: 12rpx; overflow-wrap: break-word; }

@@ -1,0 +1,19 @@
+<view class="page">
+  <view class="title">家庭共享</view>
+  <view class="panel">
+    <view class="section-title">{{enabled ? '已使用家庭共享' : '当前使用本机数据'}}</view>
+    <view class="muted">由家人提供家庭访问凭证。这里不填写 DeepSeek 或 CloudBase API Key。</view>
+    <input password value="{{token}}" bindinput="onInput" placeholder="粘贴家庭访问凭证" maxlength="200" />
+    <button class="primary" bindtap="onConnect" loading="{{busy}}" disabled="{{busy}}">连接家庭共享</button>
+  </view>
+  <view wx:if="{{enabled}}" class="panel">
+    <button class="secondary" bindtap="onMigrate" disabled="{{busy}}">复制本机菜谱到云端</button>
+    <button class="secondary" bindtap="onMigrateShopping" disabled="{{busy}}">复制本机买菜清单到云端</button>
+    <button class="secondary" bindtap="onDisconnect" disabled="{{busy}}">切回本机数据</button>
+  </view>
+  <view class="panel">
+    <button class="secondary" bindtap="onClearLocal">清空本机菜谱和清单</button>
+  </view>
+  <view wx:if="{{error}}" class="notice">{{error}}</view>
+  <view wx:if="{{message}}" class="notice">{{message}}</view>
+</view>

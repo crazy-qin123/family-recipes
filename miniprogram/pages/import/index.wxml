@@ -1,0 +1,14 @@
+<view class="page">
+  <view class="eyebrow">收藏发现的好味道</view>
+  <view class="title">粘贴一道好菜</view>
+  <view class="notice">AI 会读取网页正文并整理成草稿。你确认后才会保存入库。</view>
+  <view class="panel">
+    <view class="section-title">国内菜谱网页链接</view>
+    <textarea class="url-field" value="{{url}}" bindinput="onUrl" disabled="{{busy}}" maxlength="2048" placeholder="粘贴国内菜谱网站的 HTTPS 链接" />
+    <button class="primary" loading="{{busy}}" disabled="{{busy}}" bindtap="onParse">{{busy ? '正在获取并整理网页…' : '开始解析'}}</button>
+    <view wx:if="{{error}}" class="notice">{{error}}</view>
+    <button wx:if="{{draft}}" class="secondary" bindtap="onEdit">继续编辑已提取草稿</button>
+    <button class="secondary" bindtap="onManual">改为手动填写</button>
+  </view>
+  <view class="muted hint">目前支持部分国内菜谱网站。遇到验证或正文不足时，请复制网页正文使用。</view>
+</view>

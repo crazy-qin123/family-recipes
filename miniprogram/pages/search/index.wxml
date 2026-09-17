@@ -1,0 +1,23 @@
+<view class="page">
+  <view class="eyebrow">找一道想吃的菜</view>
+  <view class="title">今天想吃什么？</view>
+  <view class="notice">搜索使用 Tavily 额度；选择来源后才调用 DeepSeek 整理。确认保存前不会进入菜谱库。</view>
+  <view class="panel">
+    <input class="query-field" value="{{query}}" bindinput="onInput" disabled="{{busy}}" maxlength="60" placeholder="输入菜名，如红烧肉" confirm-type="search" bindconfirm="onSearch" />
+    <button class="primary" bindtap="onSearch" disabled="{{busy}}" loading="{{busy && !activeId}}">搜索菜谱</button>
+  </view>
+  <view wx:if="{{error}}" class="notice">{{error}}</view>
+  <button wx:if="{{draft}}" class="secondary" bindtap="onEdit" disabled="{{busy}}">继续编辑草稿（不重复调用 AI）</button>
+  <view wx:if="{{searched && results.length === 0}}" class="panel empty"><view class="section-title">没有找到可用来源</view><view class="muted">试试更具体的菜名，或使用粘贴菜谱。</view></view>
+  <view class="panel" wx:for="{{displayResults}}" wx:key="id">
+    <view class="section-title">{{item.title}}</view>
+    <view class="muted">来源：{{item.domain}}</view>
+    <view class="snippet">{{item.snippet}}</view>
+    <view wx:if="{{item.reason}}" class="notice">{{item.reason}}</view>
+    <button class="primary" data-id="{{item.id}}" bindtap="onChoose" disabled="{{busy || !item.canOrganize}}" loading="{{activeId === item.id}}">{{activeId === item.id ? '正在整理这份做法…' : '选择这份做法 · AI 整理'}}</button>
+    <button class="secondary" data-url="{{item.url}}" bindtap="onCopy">复制来源链接</button>
+  </view>
+  <view wx:if="{{searched && results.length > 0}}" class="pager"><button class="secondary" bindtap="onPrevPage" disabled="{{page === 0}}">上一页</button><text class="muted">第 {{page + 1}} / {{totalPages}} 页</text><button class="secondary" bindtap="onNextPage" disabled="{{(page + 1) * 5 >= results.length}}">下一页</button></view>
+  <view wx:if="{{searched && results.length > 0 && (page + 1) * 5 >= results.length}}" class="notice more-hint">如果需要更多做法，可以去网上搜索菜谱，复制全文或链接到「首页 → 添加 → 粘贴菜谱 · AI 整理」。</view>
+  <button class="secondary" bindtap="onPaste" disabled="{{busy}}">改用粘贴菜谱</button>
+</view>

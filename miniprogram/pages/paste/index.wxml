@@ -1,0 +1,13 @@
+<view class="page">
+  <view class="eyebrow">把做法整理成自家菜谱</view>
+  <view class="title">粘贴一道好菜</view>
+  <view class="notice">可以粘贴菜谱正文或网页链接。AI 整理完成后，由你确认保存。</view>
+  <view class="panel">
+    <view class="section-title">菜谱正文 / 网页链接</view>
+    <textarea class="recipe-text" value="{{text}}" bindinput="onInput" disabled="{{busy}}" maxlength="12000" placeholder="粘贴菜谱正文，或粘贴国内菜谱网站的 HTTPS 链接。" />
+    <view class="muted">{{text.length}} / 12000 字</view>
+    <button class="primary" bindtap="onOrganize" disabled="{{busy}}" loading="{{busy}}">{{busy ? 'DeepSeek 正在整理…' : '让 AI 整理'}}</button>
+    <view wx:if="{{error}}" class="notice">{{error}}</view>
+    <button wx:if="{{draft}}" class="secondary" bindtap="onEdit">继续编辑草稿（不重复调用 AI）</button>
+  </view>
+</view>

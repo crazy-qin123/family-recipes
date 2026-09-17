@@ -1,0 +1,30 @@
+.intro { margin-top: 10rpx; }
+.search-box { display: flex; align-items: center; background: #fffefb; border: 1rpx solid #e1e3d9; border-radius: 18rpx; padding: 24rpx; margin-top: 32rpx; }
+.search-label { font-size: 24rpx; color: #63735f; margin-right: 22rpx; }
+.search-box input { flex: 1; min-width: 0; font-size: 27rpx; }
+.categories { display: flex; flex-wrap: wrap; margin-top: 20rpx; }
+.category { margin: 0 12rpx 12rpx 0; padding: 0 28rpx; line-height: 64rpx; border-radius: 40rpx; font-size: 25rpx; background: #eeeee6; color: #687060; }
+.selected { background: #365b41; color: white; }
+.list-heading { display: flex; justify-content: space-between; align-items: center; margin: 26rpx 0 20rpx; }
+.list-heading-title { display: flex; align-items: baseline; gap: 16rpx; }
+.list-title { font-size: 31rpx; font-weight: 600; }
+.quick-add { width: auto; min-width: 0; margin: 0; padding: 0 20rpx; line-height: 58rpx; border-radius: 30rpx; background: #365b41; color: #fff; font-size: 24rpx; }
+.recipe-card { display: flex; align-items: center; padding: 24rpx; margin: 0 0 18rpx; background: #fffefb; border: 1rpx solid #e7e7df; border-radius: 24rpx; text-align: left; line-height: 1.5; color: #29392e; }
+.recipe-art { width: 108rpx; height: 112rpx; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 20rpx; background: #f0f1e5; font-size: 58rpx; margin-right: 24rpx; }
+.recipe-art image { width: 100%; height: 100%; border-radius: 20rpx; }
+.recipe-info { flex: 1; min-width: 0; }
+.recipe-name { font-size: 31rpx; font-weight: 700; color: #304735; letter-spacing: .5rpx; }
+.recipe-summary { font-size: 23rpx; color: #697568; line-height: 1.65; margin-top: 8rpx; }
+.recipe-meta { font-size: 22rpx; color: #63735f; margin-top: 12rpx; }
+.arrow { color: #8d9887; font-size: 38rpx; margin-left: 12rpx; }
+.recipe-row { position: relative; overflow: hidden; border-radius: 24rpx; }
+.recipe-card { transition: transform 220ms ease, opacity 220ms ease; position: relative; z-index: 2; }
+.card-open { opacity: .72; }
+.delete-recipe { position: absolute; right: 0; top: 0; height: calc(100% - 18rpx); width: 130rpx; margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; background: #b44b3d; color: #fff; border-radius: 20rpx; font-size: 26rpx; line-height: 1; opacity: 0; transform: translateX(18rpx); transition: opacity 220ms ease, transform 220ms ease; z-index: 3; }
+.delete-open { opacity: 1; transform: translateX(0); }
+.card-pressed { background: #f0f1e5; }
+.add-button { margin-top: 30rpx; }
+.footer { text-align: center; color: #8b9285; font-size: 23rpx; margin-top: 30rpx; }
+/* 显式覆盖新版默认按钮的固定宽度和外边距。 */
+.page button.recipe-card { width: 100%; max-width: none; margin: 0 0 18rpx; padding: 24rpx; font-weight: normal; }
+.page button.category { width: auto; min-width: 0; margin: 0 12rpx 12rpx 0; padding: 0 28rpx; font-weight: normal; }

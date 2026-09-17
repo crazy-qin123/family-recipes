@@ -1,0 +1,3 @@
+.query-field { height: 84rpx; box-sizing: border-box; width: 100%; padding: 20rpx; font-size: 27rpx; border: 1rpx solid #e3e6dc; background: #f7f7f1; border-radius: 12rpx; }
+.snippet { margin-top: 20rpx; line-height: 1.7; font-size: 26rpx; overflow-wrap: break-word; }
+.pager { display: flex; align-items: center; justify-content: space-between; gap: 16rpx; margin: 24rpx 0; }.pager button { flex: 1; margin: 0; }.pager .muted { white-space: nowrap; }.more-hint { margin-bottom: 24rpx; }

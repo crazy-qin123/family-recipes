@@ -1,0 +1,10 @@
+project.private.config.json
+.env
+.env.*
+!.env.example
+node_modules/
+__pycache__/
+.venv/
+backend/search.env
+backend/bulk-import-report.json
+dist/

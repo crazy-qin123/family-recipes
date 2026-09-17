@@ -1,0 +1,12 @@
+{
+  "pages": ["pages/recipes/index", "pages/detail/index", "pages/editor/index", "pages/shopping/index", "pages/import/index", "pages/paste/index", "pages/search/index", "pages/settings/index"],
+  "window": {
+    "navigationBarTitleText": "老闫家菜谱",
+    "navigationBarBackgroundColor": "#f7f5ef",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f7f5ef"
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

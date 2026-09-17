@@ -1,0 +1,2 @@
+.url-field { width: 100%; height: 220rpx; box-sizing: border-box; padding: 20rpx; font-size: 27rpx; line-height: 1.7; background: #f7f7f1; border: 1rpx solid #e3e6dc; border-radius: 12rpx; }
+.hint { margin-top: 26rpx; }

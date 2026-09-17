@@ -1,0 +1,50 @@
+<view class="page" wx:if="{{recipe}}">
+  <button class="secondary" bindtap="onEdit">编辑菜谱</button>
+  <view class="hero">
+    <view class="hero-symbol"><image wx:if="{{recipe.imageUrl}}" src="{{recipe.imageUrl}}" mode="aspectFill" /><text wx:else>{{recipe.symbol}}</text></view>
+    <view class="eyebrow">{{recipe.category}}</view>
+    <view class="title">{{recipe.name}}</view>
+    <view class="muted description">{{recipe.summary}}</view>
+    <view class="hero-meta">{{recipe.servings}}<text class="divider"> / </text>{{recipe.time}}</view>
+  </view>
+  <view class="panel">
+    <view class="section-title">准备食材</view>
+    <view class="muted">勾选需要购买的食材，再加入清单。</view>
+    <checkbox-group bindchange="onSelectIngredients">
+      <label class="ingredient ingredient-select" wx:for="{{ingredientOptions}}" wx:key="value">
+        <checkbox value="{{item.value}}" checked="{{item.checked}}" color="#365b41" />
+        <text class="ingredient-label">{{item.name}}</text><text class="amount">{{item.amount}}</text>
+      </label>
+    </checkbox-group>
+    <view wx:if="{{shoppingError}}" class="notice">{{shoppingError}}</view>
+    <view wx:if="{{added}}" class="muted">已加入买菜清单。需要再买一份时可重新勾选添加。</view>
+    <button class="primary" bindtap="onAddShopping" disabled="{{selected.length === 0 || adding}}" loading="{{adding}}">加入买菜清单（{{selected.length}} 项）</button>
+    <button class="secondary" bindtap="onShopping">查看买菜清单 →</button>
+  </view>
+  <view class="panel">
+    <view class="section-title">开始做菜</view>
+    <view class="step" wx:for="{{recipe.steps}}" wx:key="index">
+      <text class="step-number">{{index + 1}}</text>
+      <text class="step-text" selectable>{{item}}</text>
+    </view>
+  </view>
+  <view class="panel">
+    <view class="section-title">家庭备注</view>
+    <view class="muted">{{recipe.note || '暂无家庭备注'}}</view>
+  </view>
+  <view class="notice">{{cloudEnabled ? '家庭共享模式 · 示例菜谱编辑保存后进入云端。' : '本地模式 · 数据保存在当前设备。'}}</view>
+  <view wx:if="{{recipe.sourceType === 'ai-text'}}" class="notice">来源：粘贴原文，经 DeepSeek 整理、人工确认保存。未进行联网搜索。</view>
+  <view wx:if="{{recipe.sourceType === 'web' || recipe.sourceType === 'ai-search'}}" class="panel">
+    <view class="section-title">来源记录</view>
+    <view class="muted">{{recipe.sourceType === 'ai-search' ? '联网搜索来源，经 DeepSeek 整理、人工确认保存。' : '网页提取，经人工确认保存。'}}{{recipe.sourceAuthor}}</view>
+    <view wx:if="{{recipe.sourceTitle}}" class="muted">{{recipe.sourceTitle}}</view>
+    <text class="muted" selectable>{{recipe.sourceUrl}}</text>
+  </view>
+</view>
+<view class="page" wx:else>
+  <view class="panel empty">
+    <view class="section-title">没有找到这道菜</view>
+    <view class="muted">{{error || '请回到菜谱列表重新选择。'}}</view>
+    <button class="primary" bindtap="onHome">回到菜谱库</button>
+  </view>
+</view>

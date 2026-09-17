@@ -1,0 +1,44 @@
+<view class="page">
+  <view class="eyebrow">好好吃饭 · 好好生活</view>
+  <view class="title">今天，做点什么？</view>
+  <view class="muted intro">把喜欢的味道，收进老闫家菜谱。</view>
+  <view class="notice">{{cloudEnabled ? '家庭共享 · 返回本页时刷新菜谱' : '本地试用 · 菜谱保存在当前设备'}}</view>
+  <button class="secondary" bindtap="onSettings">家庭共享设置</button>
+  <button class="secondary" bindtap="onShopping">买菜清单 →</button>
+
+  <view class="search-box">
+    <text class="search-label">搜索</text>
+    <input placeholder="菜名或食材，比如鸡蛋" value="{{keyword}}" bindinput="onSearch" maxlength="60" confirm-type="search" />
+  </view>
+  <view class="categories">
+    <button wx:for="{{categories}}" wx:key="*this" class="category {{category === item ? 'selected' : ''}}" data-category="{{item}}" bindtap="onCategory">{{item}}</button>
+  </view>
+  <view class="list-heading">
+    <view class="list-heading-title">
+      <text class="list-title">我家的菜单</text>
+      <text class="muted">{{recipes.length}} 道菜</text>
+    </view>
+    <button class="quick-add" bindtap="onAdd">＋ 添加</button>
+  </view>
+  <view wx:for="{{recipes}}" wx:key="id" class="recipe-row" data-id="{{item.id}}" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd">
+  <button class="recipe-card {{openId === item.id ? 'card-open' : ''}}" style="transform: translateX({{openId === item.id ? '-130rpx' : '0'}});" data-id="{{item.id}}" bindtap="onOpen" hover-class="card-pressed">
+    <view class="recipe-art"><image wx:if="{{item.imageUrl}}" src="{{item.imageUrl}}" mode="aspectFill" /><text wx:else>{{item.symbol || '🍽️'}}</text></view>
+    <view class="recipe-info">
+      <view class="recipe-name">{{item.name}}</view>
+      <view class="recipe-summary">{{item.summary}}</view>
+      <view class="recipe-meta">{{item.category}} · {{item.time}}</view>
+    </view>
+    <text class="arrow">›</text>
+  </button><button class="delete-recipe {{openId === item.id ? 'delete-open' : ''}}" data-id="{{item.id}}" bindtap="onDelete">删除</button></view>
+  <view wx:if="{{error}}" class="panel empty">
+    <view class="muted">{{error}}</view>
+    <button class="primary" bindtap="refresh">重试读取</button>
+  </view>
+  <view wx:if="{{recipes.length === 0 && !error}}" class="panel empty">
+    <view class="section-title">还没有找到这道菜</view>
+    <view class="muted">换个菜名、食材，或试试其他分类。</view>
+    <button class="primary" bindtap="onReset">查看全部菜谱</button>
+  </view>
+  <button class="primary add-button" bindtap="onAdd">＋ 添加菜谱</button>
+  <view class="footer">家的味道，慢慢积累。</view>
+</view>

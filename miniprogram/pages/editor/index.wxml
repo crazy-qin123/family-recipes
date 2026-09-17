@@ -1,0 +1,57 @@
+<view class="page">
+  <view class="eyebrow">记录家的味道</view>
+  <view class="title">{{editing ? '调整自家的做法' : '添一道拿手菜'}}</view>
+  <view class="notice">{{cloudEnabled ? '确认保存后进入家庭共享菜谱。' : '只保存在当前设备，清理小程序数据会丢失。'}}未保存的表单离开后不会保留。</view>
+  <view wx:if="{{loadingDraft}}" class="notice">正在接收草稿，请稍候；若一直未显示，请返回导入页重试。</view>
+  <view wx:if="{{sourceType === 'web'}}" class="notice">
+    <view>网页提取草稿 · 未调用大模型，请核对后确认保存。</view>
+    <view wx:for="{{warnings}}" wx:key="index">{{item}}</view>
+    <text selectable>来源：{{sourceUrl}}</text>
+  </view>
+  <block wx:if="{{!saved && !loadFailed}}">
+    <view wx:if="{{sourceType === 'ai-text' || sourceType === 'ai-search'}}" class="notice">
+      <view>DeepSeek 整理草稿，请核对食材用量和步骤。</view>
+      <view wx:for="{{warnings}}" wx:key="index">{{item}}</view>
+      <text wx:if="{{sourceUrl}}" selectable>来源：{{sourceTitle}} {{sourceUrl}}</text>
+    </view>
+    <view class="panel">
+      <view class="section-title">基本信息</view>
+      <view class="label">菜名 *</view>
+      <input class="field" value="{{name}}" data-field="name" bindinput="onField" placeholder="例如：老闫家红烧肉" maxlength="60" />
+      <view class="label">分类</view>
+      <picker range="{{categories}}" value="{{categoryIndex}}" bindchange="onCategory"><view class="field picker"><text>{{category}}</text><text class="picker-arrow">⌄</text></view></picker>
+      <view class="label">一句话介绍</view>
+      <input class="field" value="{{summary}}" data-field="summary" bindinput="onField" placeholder="这道菜有什么特别之处？（选填）" maxlength="120" />
+      <view class="label">份量 / 耗时（选填）</view>
+      <view class="row">
+        <input class="field half" value="{{servings}}" data-field="servings" bindinput="onField" placeholder="例如：3 人份" maxlength="30" />
+        <input class="field half" value="{{time}}" data-field="time" bindinput="onField" placeholder="例如：约 30 分钟" maxlength="30" />
+      </view>
+    </view>
+    <view class="panel">
+      <view class="section-title">准备食材 *</view>
+      <view class="muted">至少一项。用量可填“2 个”“适量”，留空显示未注明。</view>
+      <view wx:for="{{ingredients}}" wx:key="index" class="ingredient-row">
+        <input class="field ingredient-name" value="{{item.name}}" data-index="{{index}}" data-field="name" bindinput="onIngredient" placeholder="食材名称" maxlength="60" />
+        <input class="field ingredient-amount" value="{{item.amount}}" data-index="{{index}}" data-field="amount" bindinput="onIngredient" placeholder="用量" maxlength="40" />
+        <button class="remove" data-index="{{index}}" bindtap="removeIngredient" aria-label="删除第 {{index + 1}} 项食材">删除</button>
+      </view>
+      <button class="secondary" bindtap="addIngredient">＋ 添加食材</button>
+    </view>
+    <view class="panel">
+      <view class="section-title">制作步骤 *</view>
+      <view wx:for="{{steps}}" wx:key="index" class="step-edit">
+        <view class="row step-heading"><text>第 {{index + 1}} 步</text><button class="remove" data-index="{{index}}" bindtap="removeStep">删除</button></view>
+        <textarea class="field textarea" value="{{item}}" data-index="{{index}}" bindinput="onStep" placeholder="写下这一步的做法" maxlength="2000" auto-height />
+      </view>
+      <button class="secondary" bindtap="addStep">＋ 添加步骤</button>
+    </view>
+    <view class="panel">
+      <view class="section-title">家庭备注（选填）</view>
+      <textarea class="field textarea" value="{{note}}" data-field="note" bindinput="onField" placeholder="口味偏好、做菜心得……" maxlength="2000" auto-height />
+    </view>
+  </block>
+  <view wx:if="{{error}}" class="notice error">{{error}}</view>
+  <button wx:if="{{!saved}}" class="primary" loading="{{saving}}" disabled="{{saving || loadingDraft || loadFailed}}" bindtap="onSave">{{editing ? '保存修改' : '确认保存'}}</button>
+  <button wx:else class="primary" bindtap="onViewSaved">已保存 · 查看菜谱</button>
+</view>
