@@ -100,7 +100,7 @@ python -m unittest -v test_importer test_server test_deepseek_recipe test_search
 | 网页结构化提取 | 已完成；目标站点可能返回验证页 |
 | DeepSeek 文本整理 | 已实现并有测试；真实调用依赖密钥 |
 | Tavily 菜谱搜索 | 已实现并有测试；真实调用依赖密钥 |
-| CloudBase 同步 | 后端和测试已完成；部署验收未完成 |
+| CloudBase 同步 | 后端和测试已完成；部署验收已完成 |
 | 微信真机与正式发布 | 未完成 |
 
 ## 隐私与版权边界
